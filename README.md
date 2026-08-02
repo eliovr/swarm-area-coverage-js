@@ -62,6 +62,7 @@ original, the swarm is built once when a run starts.
 | `src/presets.js` | generated wall layouts |
 | `src/storage.js` | saved worlds in `localStorage` |
 | `src/chart.js` | the coverage plot |
+| `src/tooltips.js` | the hover/focus descriptions on the controls |
 | `src/main.js` | controls, loop, pointer input (`SwarmWorldController.java` + `SwarmWorld.fxml`) |
 
 Plain classic `<script>` tags rather than ES modules, so the page also works
@@ -129,7 +130,8 @@ deliberate departures.
   run. On the Pillars preset at 150 agents that was 7 of them.
 - Added: wall presets, saving worlds, a brush size (5px cells are tedious to
   paint one at a time), a coverage-over-time chart with CSV export, a dark
-  canvas theme, and keyboard shortcuts.
+  canvas theme, keyboard shortcuts, and a tooltip on every control explaining
+  what it does to the model.
 
 ## Cite
 

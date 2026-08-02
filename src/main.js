@@ -372,6 +372,8 @@ observer.observe(chart.canvas);
 
 // ====== go =================================================================
 
+new Tooltips();
+
 renderer.showGrid = ui.grid.checked;
 renderer.setTheme(ui.theme.value);
 rebuildWorldSelect('preset:empty');

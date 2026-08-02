@@ -430,6 +430,28 @@ button:focus-visible {
     color: var(--text-muted);
 }
 
+/* ---------- tooltips ---------- */
+
+.tooltip {
+    position: fixed;
+    z-index: 50;
+    max-width: 264px;
+    background: var(--surface-2);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-small);
+    padding: 8px 11px;
+    font-size: 12px;
+    line-height: 1.45;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+.ctrl[data-tip] > label,
+.tile[data-tip] {
+    cursor: help;
+}
+
 /* ---------- readouts beside the world ---------- */
 
 @media (min-width: 1180px) {

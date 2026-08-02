@@ -21,11 +21,13 @@
 
     <section class="group">
       <div class="buttons">
-        <button type="button" id="btnStartPause" class="btn btn-primary">Start</button>
-        <button type="button" id="btnReset" class="btn">Reset</button>
+        <button type="button" id="btnStartPause" class="btn btn-primary"
+          data-tip="Run or halt the simulation. Paused, you paint walls on the world; running, you drop leaks on it. Shortcut: Space.">Start</button>
+        <button type="button" id="btnReset" class="btn"
+          data-tip="Scatter a fresh swarm and wipe all pheromone, leaks and counters. Walls are left alone. Shortcut: R.">Reset</button>
       </div>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="Iterations computed per second. This only changes how fast you watch the run — each iteration is identical either way.">
         <label for="slrFps">Speed <span class="unit">fps</span></label>
         <input type="range" id="slrFps" data-param="fps" min="1" max="25" step="1" value="15">
         <output for="slrFps">15</output>
@@ -33,15 +35,15 @@
     </section>
 
     <section class="group">
-      <h2>Swarm <span class="badge" title="These take effect the next time you reset">on reset</span></h2>
+      <h2>Swarm <span class="badge" data-tip="The swarm is built once when a run starts, so these two only take effect the next time you reset.">on reset</span></h2>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="How many agents make up the swarm. They all start bunched in a 200px box at the centre of the world.">
         <label for="slrAgents">Agents</label>
         <input type="range" id="slrAgents" data-param="agents" min="1" max="200" step="1" value="100">
         <output for="slrAgents">100</output>
       </div>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="Body radius of an agent in pixels. It also sets how wide an area the agent drops pheromone over, and forms the base of its personal range.">
         <label for="slrAgentWidth">Agent width</label>
         <input type="range" id="slrAgentWidth" data-param="agentWidth" min="3" max="10" step="1" value="3">
         <output for="slrAgentWidth">3</output>
@@ -51,25 +53,25 @@
     <section class="group">
       <h2>Behaviour</h2>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="Added to twice the agent width. Anything closer than this is crowding the agent, so it steps directly away.">
         <label for="slrPersonalRange">Personal range</label>
         <input type="range" id="slrPersonalRange" data-param="personalRange" min="0" max="100" step="1" value="15">
         <output for="slrPersonalRange">15</output>
       </div>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="Extends the personal range. Agents in this band sit at a workable distance, so the agent circles them instead of approaching or fleeing.">
         <label for="slrComfortRange">Comfort range</label>
         <input type="range" id="slrComfortRange" data-param="comfortRange" min="0" max="100" step="1" value="0">
         <output for="slrComfortRange">0</output>
       </div>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="Extends the comfort range. Agents out in this band are candidates to follow: each iteration the agent moves toward the most confident one it can see.">
         <label for="slrFlockRange">Flock range</label>
         <input type="range" id="slrFlockRange" data-param="flockRange" min="0" max="100" step="1" value="40">
         <output for="slrFlockRange">40</output>
       </div>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="How far an agent travels in one iteration, in pixels.">
         <label for="slrStepSize">Step size</label>
         <input type="range" id="slrStepSize" data-param="stepSize" min="1" max="10" step="1" value="5">
         <output for="slrStepSize">5</output>
@@ -79,13 +81,13 @@
     <section class="group">
       <h2>Pheromone</h2>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="Pheromone laid over the area the agent covers, every iteration. At 100% one pass saturates a cell. It is also the rate at which agents clean up leaks.">
         <label for="slrPheromone">Deposit <span class="unit">%</span></label>
         <input type="range" id="slrPheromone" data-param="pheromone" min="0" max="100" step="1" value="15">
         <output for="slrPheromone">15</output>
       </div>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="Share of the pheromone in every marked cell that decays each iteration. Raise it and the swarm forgets where it has been, so it comes back sooner.">
         <label for="slrEvaporation">Evaporation <span class="unit">%</span></label>
         <input type="range" id="slrEvaporation" data-param="evaporation" min="0" max="100" step="1" value="2">
         <output for="slrEvaporation">2</output>
@@ -95,13 +97,13 @@
     <section class="group">
       <h2>Flocking</h2>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="Share of the followed agent’s confidence added to the agent’s own. Negative values subtract it instead, so following a confident neighbour costs you confidence.">
         <label for="slrInfluence">Influence <span class="unit">%</span></label>
         <input type="range" id="slrInfluence" data-param="influence" min="-100" max="100" step="1" value="10">
         <output for="slrInfluence">10</output>
       </div>
 
-      <div class="ctrl">
+      <div class="ctrl" data-tip="How much of the last move carries into the next. At 0 the agent turns freely; at 100 it holds its previous heading and ignores where it meant to go.">
         <label for="slrInertia">Inertia <span class="unit">%</span></label>
         <input type="range" id="slrInertia" data-param="inertia" min="0" max="100" step="1" value="0">
         <output for="slrInertia">0</output>
@@ -111,18 +113,21 @@
     <section class="group">
       <h2>World</h2>
 
-      <div class="ctrl ctrl-wide">
+      <div class="ctrl ctrl-wide" data-tip="Load a generated preset or one of your saved worlds. Loading a map replaces the walls and resets the run.">
         <label for="selWorld">Map</label>
         <select id="selWorld"></select>
       </div>
 
       <div class="buttons">
-        <button type="button" id="btnSaveWorld" class="btn btn-small">Save&hellip;</button>
-        <button type="button" id="btnDeleteWorld" class="btn btn-small" disabled>Delete</button>
-        <button type="button" id="btnClearWalls" class="btn btn-small">Clear walls</button>
+        <button type="button" id="btnSaveWorld" class="btn btn-small"
+          data-tip="Store the walls currently painted, under a name. Saved worlds live in this browser only.">Save&hellip;</button>
+        <button type="button" id="btnDeleteWorld" class="btn btn-small" disabled
+          data-tip="Delete the selected saved world. Only available when a saved world is selected — presets cannot be deleted.">Delete</button>
+        <button type="button" id="btnClearWalls" class="btn btn-small"
+          data-tip="Remove every wall and reset the run.">Clear walls</button>
       </div>
 
-      <div class="ctrl ctrl-wide">
+      <div class="ctrl ctrl-wide" data-tip="Width of the wall-painting brush, in grid cells. One cell is 5px.">
         <label for="selBrush">Brush</label>
         <select id="selBrush">
           <option value="1">1 cell</option>
@@ -131,7 +136,7 @@
         </select>
       </div>
 
-      <div class="ctrl ctrl-wide">
+      <div class="ctrl ctrl-wide" data-tip="Colour scheme for the world itself. The surrounding interface stays dark either way.">
         <label for="selTheme">Canvas</label>
         <select id="selTheme">
           <option value="light" selected>Light</option>
@@ -139,7 +144,7 @@
         </select>
       </div>
 
-      <label class="check">
+      <label class="check" data-tip="Draw the 5px cell grid beneath the simulation. Shortcut: G.">
         <input type="checkbox" id="chkGrid" checked>
         <span>Show grid</span>
       </label>
@@ -162,23 +167,23 @@
         <p class="hint" id="hint" aria-live="polite"></p>
 
         <section class="metrics" aria-label="Run statistics">
-          <div class="tile tile-hero">
+          <div class="tile tile-hero" data-tip="Share of every non-wall cell that at least one agent has passed over since the last reset. Evaporation fades a trail visually but never un-counts a cell.">
             <span class="tile-label">Coverage</span>
             <span class="tile-value" id="statCoverage">0.0<small>%</small></span>
           </div>
-          <div class="tile">
+          <div class="tile" data-tip="Steps the simulation has run since the last reset.">
             <span class="tile-label">Iterations</span>
             <span class="tile-value" id="statIterations">0</span>
           </div>
-          <div class="tile">
+          <div class="tile" data-tip="Agents currently in the world.">
             <span class="tile-label">Agents</span>
             <span class="tile-value" id="statAgents">0</span>
           </div>
-          <div class="tile">
+          <div class="tile" data-tip="Agents that found nobody more confident within their flock range, so they are exploring on their own heading. These are the ones drawn in red.">
             <span class="tile-label">Leading</span>
             <span class="tile-value" id="statLeaders">0</span>
           </div>
-          <div class="tile">
+          <div class="tile" data-tip="Cells currently marked as wall. They are excluded from the coverage total.">
             <span class="tile-label">Walls</span>
             <span class="tile-value" id="statWalls">0</span>
           </div>
@@ -187,7 +192,8 @@
         <section class="card">
           <header class="card-head">
             <h2>Coverage over time</h2>
-            <button type="button" id="btnCsv" class="btn btn-small">Export CSV</button>
+            <button type="button" id="btnCsv" class="btn btn-small"
+              data-tip="Download the plotted coverage series as CSV: one row per sample, iteration and percentage.">Export CSV</button>
           </header>
           <div class="chart-wrap">
             <canvas id="chart" aria-label="Coverage percentage plotted against iterations"></canvas>
@@ -208,6 +214,7 @@
 <script src="src/storage.js"></script>
 <script src="src/renderer.js"></script>
 <script src="src/chart.js"></script>
+<script src="src/tooltips.js"></script>
 <script src="src/main.js"></script>
 
 </body>
