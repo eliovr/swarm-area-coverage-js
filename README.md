@@ -1,6 +1,9 @@
 # Swarm area coverage — web
 
-A browser port of the [swarm-area-coverage](../swarm-area-coverage) JavaFX
+**▶ [Run it](https://eliovr.github.io/swarm-area-coverage-js/)**
+
+A browser port of the
+[swarm-area-coverage](https://github.com/eliovr/swarm-area-coverage) JavaFX
 simulator for the "Confidence model" proposed in
 [Swarm-based Area Exploration and Coverage based on Pheromones and Bird Flocks](https://www.diva-portal.org/smash/record.jsf?pid=diva2%3A676835&dswid=-6923).
 
