@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swarm area coverage</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <header class="sidebar-head">
+      <h1>Swarm area coverage</h1>
+      <p>Confidence model &mdash; pheromones &amp; bird flocks</p>
+    </header>
+
+    <section class="group">
+      <div class="buttons">
+        <button type="button" id="btnStartPause" class="btn btn-primary">Start</button>
+        <button type="button" id="btnReset" class="btn">Reset</button>
+      </div>
+
+      <div class="ctrl">
+        <label for="slrFps">Speed <span class="unit">fps</span></label>
+        <input type="range" id="slrFps" data-param="fps" min="1" max="25" step="1" value="15">
+        <output for="slrFps">15</output>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Swarm <span class="badge" title="These take effect the next time you reset">on reset</span></h2>
+
+      <div class="ctrl">
+        <label for="slrAgents">Agents</label>
+        <input type="range" id="slrAgents" data-param="agents" min="1" max="200" step="1" value="100">
+        <output for="slrAgents">100</output>
+      </div>
+
+      <div class="ctrl">
+        <label for="slrAgentWidth">Agent width</label>
+        <input type="range" id="slrAgentWidth" data-param="agentWidth" min="3" max="10" step="1" value="3">
+        <output for="slrAgentWidth">3</output>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Behaviour</h2>
+
+      <div class="ctrl">
+        <label for="slrPersonalRange">Personal range</label>
+        <input type="range" id="slrPersonalRange" data-param="personalRange" min="0" max="100" step="1" value="15">
+        <output for="slrPersonalRange">15</output>
+      </div>
+
+      <div class="ctrl">
+        <label for="slrComfortRange">Comfort range</label>
+        <input type="range" id="slrComfortRange" data-param="comfortRange" min="0" max="100" step="1" value="0">
+        <output for="slrComfortRange">0</output>
+      </div>
+
+      <div class="ctrl">
+        <label for="slrFlockRange">Flock range</label>
+        <input type="range" id="slrFlockRange" data-param="flockRange" min="0" max="100" step="1" value="40">
+        <output for="slrFlockRange">40</output>
+      </div>
+
+      <div class="ctrl">
+        <label for="slrStepSize">Step size</label>
+        <input type="range" id="slrStepSize" data-param="stepSize" min="1" max="10" step="1" value="5">
+        <output for="slrStepSize">5</output>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Pheromone</h2>
+
+      <div class="ctrl">
+        <label for="slrPheromone">Deposit <span class="unit">%</span></label>
+        <input type="range" id="slrPheromone" data-param="pheromone" min="0" max="100" step="1" value="15">
+        <output for="slrPheromone">15</output>
+      </div>
+
+      <div class="ctrl">
+        <label for="slrEvaporation">Evaporation <span class="unit">%</span></label>
+        <input type="range" id="slrEvaporation" data-param="evaporation" min="0" max="100" step="1" value="2">
+        <output for="slrEvaporation">2</output>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Flocking</h2>
+
+      <div class="ctrl">
+        <label for="slrInfluence">Influence <span class="unit">%</span></label>
+        <input type="range" id="slrInfluence" data-param="influence" min="-100" max="100" step="1" value="10">
+        <output for="slrInfluence">10</output>
+      </div>
+
+      <div class="ctrl">
+        <label for="slrInertia">Inertia <span class="unit">%</span></label>
+        <input type="range" id="slrInertia" data-param="inertia" min="0" max="100" step="1" value="0">
+        <output for="slrInertia">0</output>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>World</h2>
+
+      <div class="ctrl ctrl-wide">
+        <label for="selWorld">Map</label>
+        <select id="selWorld"></select>
+      </div>
+
+      <div class="buttons">
+        <button type="button" id="btnSaveWorld" class="btn btn-small">Save&hellip;</button>
+        <button type="button" id="btnDeleteWorld" class="btn btn-small" disabled>Delete</button>
+        <button type="button" id="btnClearWalls" class="btn btn-small">Clear walls</button>
+      </div>
+
+      <div class="ctrl ctrl-wide">
+        <label for="selBrush">Brush</label>
+        <select id="selBrush">
+          <option value="1">1 cell</option>
+          <option value="3" selected>3 cells</option>
+          <option value="5">5 cells</option>
+        </select>
+      </div>
+
+      <div class="ctrl ctrl-wide">
+        <label for="selTheme">Canvas</label>
+        <select id="selTheme">
+          <option value="light" selected>Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="chkGrid" checked>
+        <span>Show grid</span>
+      </label>
+    </section>
+
+    <footer class="sidebar-foot">
+      Ventocilla, E. (2013). <em>Swarm-based Area Exploration and Coverage based
+      on Pheromones and Bird Flocks</em> &mdash; a web port of the original
+      JavaFX simulator.
+    </footer>
+  </aside>
+
+  <main class="stage">
+    <div class="stage-row">
+      <div class="world-wrap">
+        <canvas id="world" width="700" height="700" aria-label="Swarm simulation world"></canvas>
+      </div>
+
+      <div class="readouts">
+        <p class="hint" id="hint" aria-live="polite"></p>
+
+        <section class="metrics" aria-label="Run statistics">
+          <div class="tile tile-hero">
+            <span class="tile-label">Coverage</span>
+            <span class="tile-value" id="statCoverage">0.0<small>%</small></span>
+          </div>
+          <div class="tile">
+            <span class="tile-label">Iterations</span>
+            <span class="tile-value" id="statIterations">0</span>
+          </div>
+          <div class="tile">
+            <span class="tile-label">Agents</span>
+            <span class="tile-value" id="statAgents">0</span>
+          </div>
+          <div class="tile">
+            <span class="tile-label">Leading</span>
+            <span class="tile-value" id="statLeaders">0</span>
+          </div>
+          <div class="tile">
+            <span class="tile-label">Walls</span>
+            <span class="tile-value" id="statWalls">0</span>
+          </div>
+        </section>
+
+        <section class="card">
+          <header class="card-head">
+            <h2>Coverage over time</h2>
+            <button type="button" id="btnCsv" class="btn btn-small">Export CSV</button>
+          </header>
+          <div class="chart-wrap">
+            <canvas id="chart" aria-label="Coverage percentage plotted against iterations"></canvas>
+            <div class="chart-tooltip" id="chartTooltip" hidden></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script src="src/utils.js"></script>
+<script src="src/grid.js"></script>
+<script src="src/agent.js"></script>
+<script src="src/world.js"></script>
+<script src="src/presets.js"></script>
+<script src="src/storage.js"></script>
+<script src="src/renderer.js"></script>
+<script src="src/chart.js"></script>
+<script src="src/main.js"></script>
+
+</body>
+</html>
